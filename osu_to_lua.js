@@ -97,49 +97,38 @@ module.export("osu_to_lua", function(osu_file_contents) {
 	})
 
 	append_to_output("local rtv = {}");
-	append_to_output(format("--Song Setup"));
+	append_to_output(format("--Song Setup (FunkyBeats Format"));
 	append_to_output(format("rtv.%s = \"%s\"","AudioAssetId","rbxassetid://FILL_IN_AUDIO_ASSETID_HERE"));
 	append_to_output(format("rtv.%s = \"%s\"","AudioFilename",beatmap.Title));
-	append_to_output(format("rtv.%s = 200","BPM"));
 	append_to_output(format("rtv.%s = \"%s\"","AudioArtist",""));
+	append_to_output(format("rtv.%s = \"%s\"","AudioDescription",""));
 	append_to_output(format("rtv.%s = \"%s\"","ModName",""));
-
-	append_to_output(format("rtv.CharSet = {"));
-	append_to_output(format("['Opponent'] = "));
-	append_to_output(format("{['IconSet'] = \%s\;", "'rbxassetid://0'"));
-	append_to_output(format("['IconSize'] = \%s\;", "Vector2.new(150,150)"));
-	append_to_output(format("['HPColor'] = \%s\;", "Color3.fromRGB(255,0,0)"));
-
-	append_to_output(format("['NeutralPose'] = \%s\;", "Vector2.new(0,0)"));
-	append_to_output(format("['LosingPose'] = \%s\;", "Vector2.new(150,0)"));
-	append_to_output(format("['WinningPose'] = \%s\; };", "Vector2.new(0,0)"));
 	
-	append_to_output(format("['Boyfriend'] = "));
-	append_to_output(format("{['IconSet'] = \%s\;", "'rbxassetid://9691046354'"));
-	append_to_output(format("['IconSize'] = \%s\;", "Vector2.new(-150,150)"));
-	append_to_output(format("['HPColor'] = \%s\;", "Color3.fromRGB(49, 176, 209)"));
+	append_to_output(format("--Dad Setup (Enemy's Icons and Health Bar Color)"));
+	append_to_output(format("rtv.%s = \"%s\"","AudioCoverImageAssetId","rbxassetid://FILL_IN_COVERART_TEXTURE_ASSETID_HERE"));
+	append_to_output(format("rtv.%s = \"%s\"","DeathAudioCoverImageAssetId","rbxassetid://FILL_IN_COVERART_TEXTURE_ASSETID_HERE"));
+	append_to_output(format("rtv.%s = \"%s\"","WinAudioCoverImageAssetId","rbxassetid://FILL_IN_COVERART_TEXTURE_ASSETID_HERE"));
+	append_to_output("rtv.HealthBarColor = Color3.new(0,0,0)")
 
-	append_to_output(format("['NeutralPose'] = \%s\;", "Vector2.new(150,0)"));
-	append_to_output(format("['LosingPose'] = \%s\;", "Vector2.new(300,0)"));
-	append_to_output(format("['WinningPose'] = \%s\; };}", "Vector2.new(150,0)"));
+	append_to_output(format("--BF's Setup (Enemy's Icons and Health Bar Color)"));
+	append_to_output(format("rtv.%s = \"%s\"","BoyfriendIcon","rbxassetid://FILL_IN_COVERART_TEXTURE_ASSETID_HERE"));
+	append_to_output(format("rtv.%s = \"%s\"","BoyfriendIconLosing","rbxassetid://FILL_IN_COVERART_TEXTURE_ASSETID_HERE"));
+	append_to_output(format("rtv.%s = \"%s\"","BoyfriendIconWinning","rbxassetid://FILL_IN_COVERART_TEXTURE_ASSETID_HERE"));
+	append_to_output("rtv.YourHealthBarColor = Color3.new(0,0,0)")
+	
 
-	append_to_output(format("rtv.%s = %s","HealthBarType","'Classic'"));
-	append_to_output(format("rtv.%s = %s","Background",'"rbxassetid://0"'));
-
-	append_to_output(format("rtv.%s = %d","FirstNoteTime",beatmap.hitObjects[1].startTime/1000));
 	append_to_output(format("rtv.%s = %d","AudioDifficulty",1));
 	append_to_output(format("rtv.%s = %d","AudioTimeOffset",-75));
-	append_to_output(format("rtv.%s = %d","AudioVolume",.75));
+	append_to_output(format("rtv.%s = %d","AudioVolume",0.85));
 	append_to_output(format("rtv.%s = %d","AudioNotePrebufferTime",1500));
 	append_to_output(format("rtv.%s = %d","AudioMod",0));
 	append_to_output(format("rtv.%s = %d","AudioHitSFXGroup",0));
 	append_to_output("rtv.HitObjects = {}")
 	append_to_output("local function note(time,track) rtv.HitObjects[#rtv.HitObjects+1]={Time=time;Type=1;Track=track;} end")
 	append_to_output("local function hold(time,track,duration) rtv.HitObjects[#rtv.HitObjects+1] = {Time=time;Type=2;Track=track;Duration=duration;}  end")
-	append_to_output("-- Notes:") 
+	append_to_output("--Notes:")
 
-
-	 for (var i = 0; i < beatmap.hitObjects.length; i++) {
+	for (var i = 0; i < beatmap.hitObjects.length; i++) {
 		var itr = beatmap.hitObjects[i];
 		var type = itr.objectName;
 		var track = hitobj_x_to_track_number(itr.position[0]);
@@ -151,7 +140,7 @@ module.export("osu_to_lua", function(osu_file_contents) {
 		}
 	}
 	append_to_output("--")
-	
+
 	append_to_output("rtv.TimingPoints = {")
 	for (var i = 0; i < beatmap.timingPoints.length; i++) {
 		var itr = beatmap.timingPoints[i];
@@ -160,5 +149,5 @@ module.export("osu_to_lua", function(osu_file_contents) {
 	append_to_output("};")
 	append_to_output("return rtv")
 
-	return rtv_lua 
+	return rtv_lua
 })
