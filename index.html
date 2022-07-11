@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="ASCII" />
+		<style>
+		  body {
+			padding: 25px;
+			background-color: rgb(42, 42, 42);
+			color: black;
+			font-size: 30px;
+		  }
+		</style>
+	  </head>
+<body>
+<script>
+var module = {}
+module.__exports = {}
+module.export = function(name, obj) {
+	if (module.__exports[name] != null) {
+		throw "export already exists::"+name
+	}
+	module.__exports[name] = obj
+}
+module.require = function(name) {
+	if (module.__exports[name] == null) {
+		throw "require cannot find::"+name
+	}
+	return module.__exports[name]
+}
+</script>
+<script src="curves.js"></script>
+<script src="slidercalc.js"></script>
+<script src="osuparser.js"></script>
+<script src="format.js"></script>
+<script src="osu_to_lua.js"></script>
+
+<script src="jquery.js"></script>
+<script>
+$(function(){
+  $("#submit").click(function(){
+    $("#out").val("converting...")
+			var osu_file_str = $("#in").val()
+			$("#out").val(module.require("osu_to_lua")(osu_file_str))
+  })
+})
+</script>
+
+<script>
+	function CopyToClipboard(id)
+	{
+	var r = document.createRange();
+	r.selectNode(document.getElementById(id));
+	window.getSelection().removeAllRanges();
+	window.getSelection().addRange(r);
+	document.execCommand('copy');
+	window.getSelection().removeAllRanges();
+	}
+	</script>
+
+<textarea id="in" style="width:1000px;height:200px">
+  Paste OSU.txt here
+</textarea>
+<br/>
+<button id="submit">CONVERT</button>
+<br/>
+<br/>
+<br/>
+<br/>
+<textarea id="out" style="width:1000px;height:200px" readonly>
+ Copy this into the Workspace
+</textarea>
+<br/>
+<button onclick="CopyToClipboard('out')">Copy text</button>
+<br/>
+</body>
+</html>
