@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<title>FunkyBeats: Web Converter</title>
 		<meta charset="ASCII" />
 		<style>
 		  body {
 			padding: 25px;
-			background-color: rgb(32, 32, 32);
-			color: black;
+			background-color: rgb(24, 24, 24);
+			color: rgb(255, 255, 255);
 			font-size: 30px;
 		  }
 		</style>
@@ -57,24 +58,19 @@ $(function(){
 	}
 	</script>
 
-<textarea id="in" style="width:1000px;height:200px">
+<textarea id="in" style="width:1000px;height:200px;background-color: #212121">
   Paste OSU.txt here
 </textarea>
 <br/>
-<button id="submit">CONVERT</button>
+<button id="submit">Convert to Lua</button>
 <br/>
 <br/>
 <br/>
 <br/>
-<textarea id="out" style="width:1000px;height:200px" readonly>
+<textarea id="out" style="width:1000px;height:200px;background-color: #212121" readonly>
  Copy this into the Workspace
 </textarea>
-<br/>
-	<textarea id="more" style="width:1000px;height:50px;background-color:rgb(42, 42, 42);color: aliceblue;" readonly>
-	Version 1.1
-	</textarea>
-<br/>
-<button onclick="CopyToClipboard('out')">Copy text</button>
+<button onclick="CopyToClipboard('out')">Copy Output</button>
 <br/>
 </body>
 </html>
