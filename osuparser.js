@@ -10,7 +10,8 @@ function beatmapParser() {
     timingPoints: [],
     breakTimes: [],
     hitObjects: [],
-    artist: ""
+    artist: "",
+    bpm: 120,
   };
 
   var osuSection;
