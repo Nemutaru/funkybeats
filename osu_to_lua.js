@@ -96,7 +96,7 @@ module.export("osu_to_lua", function(osu_file_contents) {
 		return !(_i_to_removes[i])
 	})
 
-	var bpm = Math.round(60000/beatmap.timingPoints[1]);
+	var bpm = Math.round(60000/beatmap.timingPoints[0]);
 	var firstObject = beatmap.hitObjects[0];
 
 	append_to_output("local rtv = {}");
@@ -114,8 +114,8 @@ module.export("osu_to_lua", function(osu_file_contents) {
 	append_to_output(format("rtv.%s = %d","AudioVolume",0.85));
 	append_to_output(format("rtv.%s = %d","AudioNotePrebufferTime",1500));
 	append_to_output(format("rtv.%s = %d","AudioMod",0));
-	append_to_output(format("rtv.%s = %d","BPM", bpm));
-	append_to_output(format("rtv.%s = %d","FirstNote", firstObject));
+	append_to_output(format("rtv.%s = %d","BPM", Math.round(60000/beatmap.timingPoints[0].beatLength)));
+	append_to_output(format("rtv.%s = %d","FirstNote", beatmap.hitObjects[0].startTime));
 
 	append_to_output("rtv.HitObjects = {}")
 	append_to_output("local function note(time,track) rtv.HitObjects[#rtv.HitObjects+1]={Time=time;Type=1;Track=track;} end")
