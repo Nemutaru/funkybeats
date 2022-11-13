@@ -102,7 +102,7 @@ module.export("osu_to_lua", function(osu_file_contents) {
 	append_to_output("local rtv = {}");
 	append_to_output(format("--DX Format, Not compatible for older versions!"));
 	append_to_output(format("rtv.%s = \"%s\"","BeatmapSongID","rbxassetid://FILL_IN_AUDIO_ASSETID_HERE"));
-	append_to_output(format("rtv.%s = \"%s\"","BeatmapName",beatmap.Title));
+	append_to_output(format("rtv.%s = \"%s\"","BeatmapName","script.Name"));
 	append_to_output(format("rtv.%s = \"%s\"","BeatmapArtist",""));
 	append_to_output(format("rtv.%s = \"%s\"","BeatmapDescription",""));
 	append_to_output(format("rtv.%s = \"%s\"","BeatmapCover","rbxassetid://"));
