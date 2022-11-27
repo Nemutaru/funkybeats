@@ -99,15 +99,20 @@ module.export("osu_to_lua", function(osu_file_contents) {
 	var bpm = Math.round(60000/beatmap.timingPoints[0]);
 	var firstObject = beatmap.hitObjects[0];
 
+	append_to_output("local chars = require(game.ReplicatedStorage.Modules.Chars)");
+	append_to_output("local artists = require(game.ReplicatedStorage.Modules.Artists)");
+	append_to_output("local developers = require(game.ReplicatedStorage.Modules.Developers");
 	append_to_output("local rtv = {}");
 	append_to_output(format("--DX Format, Not compatible for older versions!"));
 	append_to_output(format("rtv.%s = \"%s\"","BeatmapSongID","rbxassetid://FILL_IN_AUDIO_ASSETID_HERE"));
 	append_to_output(format("rtv.%s = \"%s\"","BeatmapName","script.Name"));
 	append_to_output(format("rtv.%s = \"%s\"","BeatmapArtist",""));
-	append_to_output(format("rtv.%s = \"%s\"","BeatmapDescription",""));
 	append_to_output(format("rtv.%s = \"%s\"","BeatmapCover","rbxassetid://"));
+	append_to_output(format("rtv.%s = \"%s\"","BeatmapDescription",""));
+	append_to_output(format("rtv.%s = \"%s\"","BeatmapTags", ""));
+	append_to_output(format("rtv.%s = \"%s\"","BeatmapCharter",""));
+	append_to_output(format("rtv.%s = \"%s\"","BeatmapSource",""));
 
-	append_to_output(format("local chars = require(game.ReplicatedStorage.Shared.Chars)"));
 	append_to_output(format("rtv.%s = %s","Icons","{bf = chars.bf; dad = chars.dad}"));
 	append_to_output(format("rtv.%s = %d","AudioDifficulty",1));
 	append_to_output(format("rtv.%s = %d","AudioTimeOffset",-75));
