@@ -98,12 +98,12 @@ module.export("osu_to_lua", function(osu_file_contents) {
 
 	var bpm = Math.round(60000/beatmap.timingPoints[0]);
 	var firstObject = beatmap.hitObjects[0];
-
+    
 	append_to_output("local chars = require(game.ReplicatedStorage.Modules.Chars)");
 	append_to_output("local artists = require(game.ReplicatedStorage.Modules.Artists)");
 	append_to_output("local developers = require(game.ReplicatedStorage.Modules.Developers)");
 	append_to_output("local rtv = {}");
-	append_to_output(format("--DX Format, Not compatible for older versions!"));
+	append_to_output(format("--[[FunkyBeats Deluxe Format (11.28.22)]]"));
 	append_to_output(format("rtv.%s = \"%s\"","BeatmapSongID","rbxassetid://FILL_IN_AUDIO_ASSETID_HERE"));
 	append_to_output(format("rtv.%s = %s","BeatmapName","script.Name"));
 	append_to_output(format("rtv.%s = \"%s\"","BeatmapArtist", beatmap.Artist));
@@ -114,7 +114,7 @@ module.export("osu_to_lua", function(osu_file_contents) {
 	append_to_output(format("rtv.%s = \"%s\"","BeatmapSource", beatmap.Source));
 
 	append_to_output(format("rtv.%s = %s","Icons","{bf = chars.bf; dad = chars.dad}"));
-	append_to_output(format("rtv.%s = %d","AudioDifficulty",1));
+	append_to_output(format("rtv.%s = %d","AudioDifficulty", ((beatmap.hitObjects/beatmap.hitObjects[beatmap.timingPoints.length].startTime)/2.5)));
 	append_to_output(format("rtv.%s = %d","AudioTimeOffset",-75));
 	append_to_output(format("rtv.%s = %d","AudioVolume",0.85));
 	append_to_output(format("rtv.%s = %d","AudioNotePrebufferTime",1500));

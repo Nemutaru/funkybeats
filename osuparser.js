@@ -11,6 +11,7 @@ function beatmapParser() {
     breakTimes: [],
     hitObjects: [],
     artist: "",
+    time: 0,
   };
 
   var osuSection;
