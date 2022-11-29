@@ -114,7 +114,7 @@ module.export("osu_to_lua", function(osu_file_contents) {
 	append_to_output(format("rtv.%s = \"%s\"","BeatmapSource", beatmap.Source));
 
 	append_to_output(format("rtv.%s = %s","Icons","{bf = chars.bf; dad = chars.dad}"));
-	append_to_output(format("rtv.%s = %d","AudioDifficulty", ((beatmap.hitObjects/beatmap.hitObjects[beatmap.timingPoints.length].startTime)/2.5)));
+	append_to_output(format("rtv.%s = %d","AudioDifficulty", ((beatmap.hitObjects.length/beatmap.hitObjects[beatmap.timingPoints.length - 1].startTime)/2.5)));
 	append_to_output(format("rtv.%s = %d","AudioTimeOffset",-75));
 	append_to_output(format("rtv.%s = %d","AudioVolume",0.85));
 	append_to_output(format("rtv.%s = %d","AudioNotePrebufferTime",1500));
