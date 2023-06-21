@@ -116,7 +116,7 @@ module.export("osu_to_lua", function(osu_file_contents) {
 	append_to_output(format("rtv.%s = %d","AudioVolume",0.85));
 	append_to_output(format("rtv.%s = %d","AudioNotePrebufferTime",1500));
 	append_to_output(format("rtv.%s = %d","AudioMod",0));
-	append_to_output(format("rtv.%s = %s","BPM", beatmap.timingPoints[0]));
+	append_to_output(format("rtv.%s = %d","BPM", Math.round(60000/beatmap.timingPoints[0].bpm)));
 	//append_to_output(format("rtv.%s = %d","BPM", Math.round(60000/beatmap.timingPoints[0])));
 	append_to_output(format("rtv.%s = %d","FirstNote", beatmap.hitObjects[0].startTime));
 

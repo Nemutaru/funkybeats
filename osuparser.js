@@ -440,6 +440,8 @@ function beatmapParser() {
     readLine: readLine,
     buildBeatmap: buildBeatmap
   };
+
+  
 }
 
 /**
