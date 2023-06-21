@@ -100,21 +100,18 @@ module.export("osu_to_lua", function(osu_file_contents) {
 	var firstObject = beatmap.hitObjects[0];
     
 	append_to_output("local chars = require(game.ReplicatedStorage.Modules.Chars)");
-	append_to_output("local artists = require(game.ReplicatedStorage.Modules.Artists)");
-	append_to_output("local developers = require(game.ReplicatedStorage.Modules.Developers)");
 	append_to_output("local rtv = {}");
-	append_to_output(format("--[[FunkyBeats Deluxe Format (11.28.22)]]"));
-	append_to_output(format("rtv.%s = \"%s\"","BeatmapSongID","rbxassetid://FILL_IN_AUDIO_ASSETID_HERE"));
-	append_to_output(format("rtv.%s = %s","BeatmapName","script.Name"));
-	append_to_output(format("rtv.%s = \"%s\"","BeatmapArtist", beatmap.Artist));
-	append_to_output(format("rtv.%s = \"%s\"","BeatmapCover","rbxassetid://"));
-	append_to_output(format("rtv.%s = \"%s\"","BeatmapDescription",""));
+	append_to_output(format("--[[FunkyBeats V10 Format ]]"));
+	append_to_output(format("rtv.%s = \"%s\"","AudioAssetId","rbxassetid://FILL_IN_AUDIO_ASSETID_HERE"));
+	append_to_output(format("rtv.%s = %s","AudioFilename","script.Name"));
+	append_to_output(format("rtv.%s = \"%s\"","AudioArtist", beatmap.Artist));
+	append_to_output(format("rtv.%s = \"%s\"","AudioCoverImageAssetId","rbxassetid://"));
+	append_to_output(format("rtv.%s = \"%s\"","AudioDescription",""));
 	append_to_output(format("rtv.%s = \"%s\"","BeatmapTags", beatmap.Tags));
-	append_to_output(format("rtv.%s = \"%s\"","BeatmapCharter",""));
-	append_to_output(format("rtv.%s = \"%s\"","BeatmapSource", beatmap.Source));
-
-	append_to_output(format("rtv.%s = %s","Icons","{bf = chars.bf; dad = chars.dad}"));
-	append_to_output(format("rtv.%s = %d","AudioDifficulty", ((beatmap.hitObjects.length/beatmap.hitObjects[beatmap.timingPoints.length - 1].startTime)/2.5)));
+	append_to_output(format("rtv.%s = \"%s\"","Mapharter","Charters.Nemutaru"));
+	
+	append_to_output(format("rtv.%s = %s","CharactersUsed","{bf = chars.boyfren; dad = chars.dad}"));
+	append_to_output(format("rtv.%s = %d","AudioDifficulty", ""));
 	append_to_output(format("rtv.%s = %d","AudioTimeOffset",-75));
 	append_to_output(format("rtv.%s = %d","AudioVolume",0.85));
 	append_to_output(format("rtv.%s = %d","AudioNotePrebufferTime",1500));
