@@ -101,22 +101,23 @@ module.export("osu_to_lua", function(osu_file_contents) {
     
 	append_to_output("local chars = require(game.ReplicatedStorage.Modules.Chars)");
 	append_to_output("local rtv = {}");
-	append_to_output(format("--[[FunkyBeats V10 Format ]]"));
+	append_to_output(format("--[[ FunkyBeats V10 Format 6212023-1110 ]]"));
 	append_to_output(format("rtv.%s = \"%s\"","AudioAssetId","rbxassetid://FILL_IN_AUDIO_ASSETID_HERE"));
 	append_to_output(format("rtv.%s = %s","AudioFilename","script.Name"));
 	append_to_output(format("rtv.%s = \"%s\"","AudioArtist", beatmap.Artist));
 	append_to_output(format("rtv.%s = \"%s\"","AudioCoverImageAssetId","rbxassetid://"));
 	append_to_output(format("rtv.%s = \"%s\"","AudioDescription",""));
 	append_to_output(format("rtv.%s = \"%s\"","BeatmapTags", beatmap.Tags));
-	append_to_output(format("rtv.%s = \"%s\"","Mapharter","Charters.Nemutaru"));
+	append_to_output(format("rtv.%s = %s","Mapharter","Charters.Nemutaru"));
 	
-	append_to_output(format("rtv.%s = %s","CharactersUsed","{bf = chars.boyfren; dad = chars.dad}"));
+	append_to_output(format("rtv.%s = %s","CharactersUsed","{BF = chars.boyfren; Dad = chars.dad}"));
 	append_to_output(format("rtv.%s = %d","AudioDifficulty", ""));
 	append_to_output(format("rtv.%s = %d","AudioTimeOffset",-75));
 	append_to_output(format("rtv.%s = %d","AudioVolume",0.85));
 	append_to_output(format("rtv.%s = %d","AudioNotePrebufferTime",1500));
 	append_to_output(format("rtv.%s = %d","AudioMod",0));
-	append_to_output(format("rtv.%s = %d","BPM", Math.round(60000/beatmap.timingPoints[0].beatLength)));
+	append_to_output(format("rtv.%s = %d","BPM", beatmap.timingPoints[0]));
+	//append_to_output(format("rtv.%s = %d","BPM", Math.round(60000/beatmap.timingPoints[0])));
 	append_to_output(format("rtv.%s = %d","FirstNote", beatmap.hitObjects[0].startTime));
 
 	append_to_output("rtv.HitObjects = {}")
