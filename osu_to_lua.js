@@ -101,7 +101,7 @@ module.export("osu_to_lua", function(osu_file_contents) {
 	var today = new Date();
 	var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
 
-	append_to_output("local chars = require(game.ReplicatedStorage.Modules.Chars)");
+	append_to_output("local chars = require(game.ReplicatedStorage.Shared.Characters)");
 	append_to_output("local rtv = {}");
 	append_to_output("");
 	append_to_output(format("--[[ FunkyBeats V10 Format ]]"));
