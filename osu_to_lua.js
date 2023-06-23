@@ -115,7 +115,7 @@ module.export("osu_to_lua", function(osu_file_contents) {
 	append_to_output(format("rtv.%s = \"%s\"","AudioCoverImageAssetId","rbxassetid://"));
 	append_to_output(format("rtv.%s = \"%s\"","AudioDescription",""));
 	append_to_output(format("rtv.%s = \"%s\"","BeatmapTags", beatmap.Tags));
-	append_to_output(format("rtv.%s = %s","MapCharter","Charters.Nemutaru"));
+	append_to_output(format("rtv.%s = %s","MapCharter","charters.Nemutaru"));
 	
 	console.log(beatmap.timingPoints[0]);
 
