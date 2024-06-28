@@ -98,64 +98,74 @@ module.export("osu_to_lua", function(osu_file_contents) {
 
 	var bpm = Math.round(60000/beatmap.timingPoints[0]);
 	var firstObject = beatmap.hitObjects[0];
-	var today = new Date();
 	var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
 
-	append_to_output("local chars = require(game.ReplicatedStorage.Shared.Characters)");
-	append_to_output("local charters = require(game.ReplicatedStorage.Shared.Charters)");
-	append_to_output("local rtv = {}");
+	append_to_output("local FormatV2 = require(game.ServerStorage.BeatmapFormats.FormatV2)");
+	append_to_output("local self = FormatV2()");
 	append_to_output("");
-	append_to_output(format("--[[ FunkyBeats V10 Format ]]"));
-	append_to_output(format("-- BEATMAP CREATION DATE: %s at %s", today, time));
-	append_to_output("");
-	append_to_output("----> [[ BASIC AUDIO DATA ]]");
-	append_to_output(format("rtv.%s = \"%s\"","AudioAssetId","rbxassetid://FILL_IN_AUDIO_ASSETID_HERE"));
-	append_to_output(format("rtv.%s = %s","AudioFilename","script.Name"));
-	append_to_output(format("rtv.%s = \"%s\"","AudioArtist", beatmap.Artist));
-	append_to_output(format("rtv.%s = \"%s\"","AudioCoverImageAssetId","rbxassetid://"));
-	append_to_output(format("rtv.%s = \"%s\"","AudioDescription",""));
-	append_to_output(format("rtv.%s = \"%s\"","BeatmapTags", beatmap.Tags));
-	append_to_output(format("rtv.%s = %s","MapCharter","charters.Nemutaru"));
-	
-	console.log(beatmap.timingPoints[0]);
 
-	append_to_output(format("rtv.%s = %s","CharactersUsed","{BF = chars.boyfren; Dad = chars.dad}"));
-	append_to_output(format("rtv.%s = %d","AudioDifficulty", ""));
-	append_to_output("");
-	append_to_output("----> [[ EXTRA ]]");
+	// self.metadata
+	append_to_output("self.metadata = {");
+	append_to_output(format("	%s = %s;","Title", beatmap.Title));
+	append_to_output(format("	%s = %s;","Artist", beatmap.Artist));
+	append_to_output(format("	%s = \"%s\";","BannerID","rbxassetid://"));
+	append_to_output(format("	%s = %s;","Description",""));
+	append_to_output(format("	%s = %d;","CreatorUID", 0));
+	append_to_output(format("	%s = %s;","Source", beatmap.Source));
+	append_to_output(format("	%s = %s;","Tags", beatmap.Tags));
+	append_to_output("};");
+
+	// self.char_data
+	append_to_output("self.char_data = {");
+	append_to_output("	BF = 'boyfren';");
+	append_to_output("	Dad = 'emptyr';");
+	append_to_output("};");
+
+	// self.settings 
+	append_to_output("self.settings = {");
+	append_to_output(format("	%s = %d","TimeOffset", -75 + beatmap.timingPoints[0].offset));
+	append_to_output(format("	%s = %d","AudioVolume", 1));
+	append_to_output(format("	%s = %d","PrebufferTime", 1500));
+	append_to_output(format("	%s = %d","BPM", beatmap.timingPoints[0].bpm));
+	append_to_output("};");
+
+	// self.note_data 
+	append_to_output("self.note_data = {");
+	append_to_output(format("	[%d;%s] = {", 1.0, beatmap.Version));
 	
-	append_to_output(format("rtv.%s = %d","AudioTimeOffset",-75));
-	append_to_output(format("rtv.%s = %d","AudioVolume",0.85));
-	append_to_output(format("rtv.%s = %d","AudioNotePrebufferTime",1500));
-	append_to_output(format("rtv.%s = %d","AudioMod",0));
-	append_to_output(format("rtv.%s = %d","BPM", beatmap.timingPoints[0].bpm));
-	append_to_output(format("rtv.%s = %d","FirstNote", beatmap.hitObjects[0].startTime));
-	append_to_output("");
-	append_to_output("rtv.HitObjects = {}")
-	append_to_output("local function note(time,track) rtv.HitObjects[#rtv.HitObjects+1]={Time=time;Type=1;Track=track;} end")
-	append_to_output("local function hold(time,track,duration) rtv.HitObjects[#rtv.HitObjects+1] = {Time=time;Type=2;Track=track;Duration=duration;}  end")
-	append_to_output("----> [[ NOTES ]]")
 
 	for (var i = 0; i < beatmap.hitObjects.length; i++) {
 		var itr = beatmap.hitObjects[i];
 		var type = itr.objectName;
 		var track = hitobj_x_to_track_number(itr.position[0]);
 
-		if (type == "slider") {
+		// old format
+		/*if (type == "slider") {
 			append_to_output(format("hold(%d,%d,%d) ", itr.startTime, track, itr.duration))
 		} else {
 			append_to_output(format("note(%d,%d) ",itr.startTime, track))
+		}*/
+
+		if (type == "slider") {
+			append_to_output(format("'%d': {'Time': %d, 'Track': %d, 'Duration': %d}", i, itr.startTime, track, itr.duration))
+		} else {
+			append_to_output(format("'%d': {'Time': %d, 'Track': %d}", i, itr.startTime, track))
 		}
 	}
-	append_to_output("----> [[ TIMING POINTS ]] ")
 
+	append_to_output("};");
+	append_to_output("};");
+
+	/* dont need these rn
+	append_to_output("")
 	append_to_output("rtv.TimingPoints = {")
 	for (var i = 0; i < beatmap.timingPoints.length; i++) {
 		var itr = beatmap.timingPoints[i];
 		append_to_output(format("\t[%d] = { Time = %d; BeatLength = %d; };",i+1, itr.offset, itr.beatLength))
 	}
-	append_to_output("};")
-	append_to_output("return rtv")
+	append_to_output("};")*/ 
+	
+	append_to_output("return self")
 
 	return rtv_lua
 })
