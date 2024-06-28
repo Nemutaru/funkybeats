@@ -98,20 +98,20 @@ module.export("osu_to_lua", function(osu_file_contents) {
 
 	var bpm = Math.round(60000/beatmap.timingPoints[0]);
 	var firstObject = beatmap.hitObjects[0];
-	
+
 	append_to_output("local FormatV2 = require(game.ServerStorage.BeatmapFormats.FormatV2)");
 	append_to_output("local self = FormatV2()");
 	append_to_output("");
 
 	// self.metadata
 	append_to_output("self.metadata = {");
-	append_to_output(format("	%s = %s;","Title", beatmap.Title));
-	append_to_output(format("	%s = %s;","Artist", beatmap.Artist));
+	append_to_output(format("	%s = '%s';","Title", beatmap.Title));
+	append_to_output(format("	%s = '%s';","Artist", beatmap.Artist));
 	append_to_output(format("	%s = \"%s\";","BannerID","rbxassetid://"));
-	append_to_output(format("	%s = %s;","Description",""));
+	append_to_output(format("	%s = '%s';","Description",""));
 	append_to_output(format("	%s = %d;","CreatorUID", 0));
-	append_to_output(format("	%s = %s;","Source", beatmap.Source));
-	append_to_output(format("	%s = %s;","Tags", beatmap.Tags));
+	append_to_output(format("	%s = '%'s';","Source", beatmap.Source));
+	append_to_output(format("	%s = '%s';","Tags", beatmap.Tags));
 	append_to_output("};");
 
 	// self.char_data
@@ -122,15 +122,15 @@ module.export("osu_to_lua", function(osu_file_contents) {
 
 	// self.settings 
 	append_to_output("self.settings = {");
-	append_to_output(format("	%s = %d","TimeOffset", -75 + beatmap.timingPoints[0].offset));
-	append_to_output(format("	%s = %d","AudioVolume", 1));
-	append_to_output(format("	%s = %d","PrebufferTime", 1500));
-	append_to_output(format("	%s = %d","BPM", beatmap.timingPoints[0].bpm));
+	append_to_output(format("	%s = %d;","TimeOffset", -75 + beatmap.timingPoints[0].offset));
+	append_to_output(format("	%s = %d;","AudioVolume", 1));
+	append_to_output(format("	%s = %d;","PrebufferTime", 1500));
+	append_to_output(format("	%s = %d;","BPM", beatmap.timingPoints[0].bpm));
 	append_to_output("};");
 
 	// self.note_data 
 	append_to_output("self.note_data = {");
-	append_to_output(format("	[%d;%s] = {", 1.0, beatmap.Version));
+	append_to_output(format("	['%d;%s'] = [[", 1.0, beatmap.Version));
 	
 
 	for (var i = 0; i < beatmap.hitObjects.length; i++) {
@@ -152,7 +152,7 @@ module.export("osu_to_lua", function(osu_file_contents) {
 		}
 	}
 
-	append_to_output("};");
+	append_to_output("]]");
 	append_to_output("};");
 
 	/* dont need these rn
