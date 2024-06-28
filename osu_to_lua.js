@@ -105,13 +105,13 @@ module.export("osu_to_lua", function(osu_file_contents) {
 
 	// self.metadata
 	append_to_output("self.metadata = {");
-	append_to_output(format("	%s = '%s';","Title", beatmap.Title));
-	append_to_output(format("	%s = '%s';","Artist", beatmap.Artist));
-	append_to_output(format("	%s = \"%s\";","BannerID","rbxassetid://"));
-	append_to_output(format("	%s = '%s';","Description",""));
+	append_to_output(format("	%s = \"%s\",","Title", beatmap.Title));
+	append_to_output(format("	%s = \"%s\",","Artist", beatmap.Artist));
+	append_to_output(format("	%s = \"%s\",","BannerID","rbxassetid://"));
+	append_to_output(format("	%s = \"%s\",","Description",""));
 	append_to_output(format("	%s = %d;","CreatorUID", 0));
-	append_to_output(format("	%s = '%'s';","Source", beatmap.Source));
-	append_to_output(format("	%s = '%s';","Tags", beatmap.Tags));
+	append_to_output(format("	%s = \"%s\",","Source", beatmap.Source));
+	append_to_output(format("	%s = \"%s\",","Tags", beatmap.Tags));
 	append_to_output("};");
 
 	// self.char_data

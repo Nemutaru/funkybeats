@@ -46,17 +46,6 @@ $(function(){
 })
 </script>
 
-<script>
-	function CopyToClipboard(id)
-	{
-	var r = document.createRange();
-	r.selectNode(document.getElementById(id));
-	window.getSelection().removeAllRanges();
-	window.getSelection().addRange(r);
-	document.execCommand('copy');
-	window.getSelection().removeAllRanges();
-	}
-</script>
 <textarea id="in" style="width:1000px;height:200px;background-color: #212121;color: rgb(200, 200, 200)"">
 	Paste OSU.txt here
 </textarea>
@@ -68,7 +57,18 @@ $(function(){
 	Output here
 </textarea>
 <br/>
-<button onclick="myFunction()">Copy text</button>
+<script>
+	let text = document.getElementById('out').innerHTML;
+	const copyContent = async () => {
+	  try {
+		await navigator.clipboard.writeText(text);
+		console.log('Content copied to clipboard');
+	  } catch (err) {
+		console.error('Failed to copy: ', err);
+	  }
+	}
+</script>
+<button onclick="copyContent()">Copy text</button>
 <br/>
 </body>
 </html>
