@@ -98,8 +98,7 @@ module.export("osu_to_lua", function(osu_file_contents) {
 
 	var bpm = Math.round(60000/beatmap.timingPoints[0]);
 	var firstObject = beatmap.hitObjects[0];
-	var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-
+	
 	append_to_output("local FormatV2 = require(game.ServerStorage.BeatmapFormats.FormatV2)");
 	append_to_output("local self = FormatV2()");
 	append_to_output("");
