@@ -148,7 +148,7 @@ module.export("osu_to_lua", function(osu_file_contents) {
 		if (type == "slider") {
 			append_to_output(format("{'Time': %d, 'Track': %d, 'Duration': %d},", itr.startTime, track, itr.duration))
 		} else {
-			append_to_output(format("{'Time': %d, 'Track': %d}", itr.startTime, track))
+			append_to_output(format("{'Time': %d, 'Track': %d},", itr.startTime, track))
 		}
 	}
 
