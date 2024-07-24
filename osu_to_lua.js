@@ -145,11 +145,13 @@ module.export("osu_to_lua", function(osu_file_contents) {
 			append_to_output(format("note(%d,%d) ",itr.startTime, track))
 		}*/
 
+		append_to_output("[");
 		if (type == "slider") {
-			append_to_output(format("{'Time': %d, 'Track': %d, 'Duration': %d},", itr.startTime, track, itr.duration))
+			append_to_output(format("{'Time':%d,'Track':%d,'Type':2,'Duration':%d},", itr.startTime, track, itr.duration))
 		} else {
-			append_to_output(format("{'Time': %d, 'Track': %d},", itr.startTime, track))
+			append_to_output(format("{'Time':%d,'Type':1,'Track':%d},", itr.startTime, track))
 		}
+		append_to_output("]");
 	}
 
 	append_to_output("]]");
