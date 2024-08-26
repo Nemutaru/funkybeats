@@ -100,6 +100,7 @@ module.export("osu_to_lua", function(osu_file_contents) {
 	var firstObject = beatmap.hitObjects[0];
 
 	append_to_output("local rtv = {}");
+	append_to_output("--")
 	append_to_output(format("rtv.%s = \"%s\"","AudioAssetId","rbxassetid://FILL_IN_AUDIO_ASSETID_HERE"));
 	append_to_output(format("rtv.%s = \"%s\"","AudioFilename",beatmap.Title));
 	append_to_output(format("rtv.%s = \"%s\"","AudioArtist",beatmap.Artist));
@@ -108,13 +109,14 @@ module.export("osu_to_lua", function(osu_file_contents) {
 	append_to_output(format("rtv.%s = %d","AudioDifficulty",1));
 	append_to_output(format("rtv.%s = %d","AudioTimeOffset",-75));
 	append_to_output(format("rtv.%s = %d","AudioVolume",0.5));
+	append_to_output("--")
 	append_to_output(format("rtv.%s = %d","AudioNotePrebufferTime",1500));
 	append_to_output(format("rtv.%s = %d","AudioMod",0));
-	append_to_output(format("rtv.%s = %d;","CreatorUID", 0));
+	append_to_output(format("rtv.%s = %d;","MapCharter", 0));
 	append_to_output(format("rtv.%s = \"%s\"","Source", beatmap.Source));
 	append_to_output(format("rtv.%s = \"%s\"","Tags", beatmap.Tags));
 	append_to_output(format("rtv.%s = %d","BPM", beatmap.timingPoints[0].bpm));
-
+	append_to_output("--")
 	append_to_output("rtv.HitObjects = {}")
 	append_to_output("local function note(time,track) rtv.HitObjects[#rtv.HitObjects+1]={Time=time;Type=1;Track=track;} end")
 	append_to_output("local function hold(time,track,duration) rtv.HitObjects[#rtv.HitObjects+1] = {Time=time;Type=2;Track=track;Duration=duration;}  end")
