@@ -111,9 +111,9 @@ module.export("osu_to_lua", function(osu_file_contents) {
 	append_to_output(format("rtv.%s = %d","AudioNotePrebufferTime",1500));
 	append_to_output(format("rtv.%s = %d","AudioMod",0));
 	append_to_output(format("rtv.%s = %d;","CreatorUID", 0));
-	append_to_output(format("rtv.%s = \"%s\",","Source", beatmap.Source));
-	append_to_output(format("rtv.%s = \"%s\",","Tags", beatmap.Tags));
-	append_to_output(format("rtv.%s = %d;","BPM", beatmap.timingPoints[0].bpm));
+	append_to_output(format("rtv.%s = \"%s\"","Source", beatmap.Source));
+	append_to_output(format("rtv.%s = \"%s\"","Tags", beatmap.Tags));
+	append_to_output(format("rtv.%s = %d","BPM", beatmap.timingPoints[0].bpm));
 
 	append_to_output("rtv.HitObjects = {}")
 	append_to_output("local function note(time,track) rtv.HitObjects[#rtv.HitObjects+1]={Time=time;Type=1;Track=track;} end")
