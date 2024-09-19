@@ -121,7 +121,6 @@ function beatmapParser() {
         timingPoint.bpm   = bpm;
       } else {
         // If negative, beatLength is a velocity factor
-        timingPoint.bpm = Math.abs(100 / timingPoint.beatLength);
         timingPoint.velocity = Math.abs(100 / timingPoint.beatLength);
       }
     }

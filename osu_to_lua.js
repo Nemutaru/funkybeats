@@ -139,7 +139,7 @@ module.export("osu_to_lua", function(osu_file_contents) {
 	for (var i = 0; i < beatmap.timingPoints.length; i++) {
 		var itr = beatmap.timingPoints[i];
 		console.log(itr)
-		append_to_output(format("\t{Time = %d, BeatLength = %d,},", itr.offset, itr.beatLength))
+		append_to_output(format("\t{Time = %d, BeatLength = %d, Velocity = %d},", itr.offset, itr.beatLength, itr.velocity))
 	}
 	append_to_output("};")
 	append_to_output("return rtv")
