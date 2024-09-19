@@ -118,7 +118,7 @@ function beatmapParser() {
         var bpm        = Math.round(60000 / timingPoint.beatLength);
         beatmap.bpmMin = beatmap.bpmMin ? Math.min(beatmap.bpmMin, bpm) : bpm;
         beatmap.bpmMax = beatmap.bpmMax ? Math.max(beatmap.bpmMax, bpm) : bpm;
-        timingPoint.bpm    = bpm;
+        timingPoint.bpm   = bpm;
       } else {
         // If negative, beatLength is a velocity factor
         timingPoint.velocity = Math.abs(100 / timingPoint.beatLength);
