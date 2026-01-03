@@ -99,28 +99,36 @@ module.export("osu_to_lua", function(osu_file_contents) {
 	var bpm = Math.round(60000/beatmap.timingPoints[0]);
 	var firstObject = beatmap.hitObjects[0];
 
-	append_to_output("local rtv = {}");
-	append_to_output("--")
-	append_to_output(format("rtv.%s = \"%s\"","AudioAssetId","rbxassetid://FILL_IN_AUDIO_ASSETID_HERE"));
-	append_to_output(format("rtv.%s = \"%s\"","AudioFilename",beatmap.Title));
-	append_to_output(format("rtv.%s = \"%s\"","AudioArtist",beatmap.Artist));
-	append_to_output(format("rtv.%s = \"%s\"","AudioDescription",""));
-	append_to_output(format("rtv.%s = \"%s\"","AudioCoverImageAssetId","rbxassetid://FILL_IN_COVERART_TEXTURE_ASSETID_HERE"));
-	append_to_output(format("rtv.%s = %d","AudioDifficulty",1));
-	append_to_output(format("rtv.%s = %d","AudioTimeOffset",-75));
-	append_to_output(format("rtv.%s = %d","AudioVolume",0.5));
-	append_to_output("--")
-	append_to_output(format("rtv.%s = %d","AudioNotePrebufferTime",1500));
-	append_to_output(format("rtv.%s = %d","AudioMod",0));
-	append_to_output(format("rtv.%s = %d;","MapCharter", 0));
-	append_to_output(format("rtv.%s = \"%s\"","Source", beatmap.Source));
-	append_to_output(format("rtv.%s = \"%s\"","Tags", beatmap.Tags));
-	append_to_output(format("rtv.%s = %d","BPM", beatmap.timingPoints[0].bpm));
-	append_to_output("--")
-	append_to_output("rtv.HitObjects = {}")
-	append_to_output("local function note(time,track) rtv.HitObjects[#rtv.HitObjects+1]={Time=time;Type=1;Track=track;} end")
-	append_to_output("local function hold(time,track,duration) rtv.HitObjects[#rtv.HitObjects+1] = {Time=time;Type=2;Track=track;Duration=duration;}  end")
-	append_to_output("--")
+	var output_lines = {
+		0 : "local rtv = {}",
+		1 : "--",
+		2 : format("rtv.%s = \"%s\"","AudioAssetId","rbxassetid://FILL_IN_AUDIO_ASSETID_HERE"),
+		3 : format("rtv.%s = \"%s\"","AudioFilename",beatmap.Title),
+		4 : format("rtv.%s = \"%s\"","AudioArtist",beatmap.Artist),
+		5 : format("rtv.%s = \"%s\"","AudioDescription",""),
+		6 : format("rtv.%s = \"%s\"","AudioCoverImageAssetId","rbxassetid://FILL_IN_COVERART_TE,TURE_ASSETID_HERE"),
+		7 : format("rtv.%s = %d","AudioDifficulty",1),
+		8 : format("rtv.%s = %d","AudioTimeOffset",-75),
+		9 : format("rtv.%s = %d","AudioVolume",0.5),
+		10 : "--",
+		11 : format("rtv.%s = %d","AudioNotePrebufferTime",15,0),
+		12 : format("rtv.%s = %d","AudioMod",0),
+		13 : format("rtv.%s = %d;","MapCharter", 0),
+		14 : format("rtv.%s = \"%s\"","Source", beatmap.Sourc,),
+		15 : format("rtv.%s = \"%s\"","Tags", beatmap.Tags),
+		16 : format("rtv.%s = %d","BPM", beatmap.timingPoints[0].bpm),
+		17 : "--",
+		18 : "rtv.HitObjects = {}",
+		19 : "local function note(time,track) rtv.HitObjects[rtv.HitObjects+1]={Time=time;Type=1;Track=track;} end",
+		20 : "local function hold(time,track,duration) rtv.HitObjects[#rtv.HitObjects+1] = {Time=time;Type=2;Track=track;Duration=duration;}  end",
+		21 : "--",
+	};
+
+	// Render all initial strings in the output_lines table
+	for (var i = 0; i < output_lines.length; i++) {
+		var str_out = output_lines[i]
+		append_to_output(str_out)
+	}
 
 	for (var i = 0; i < beatmap.hitObjects.length; i++) {
 		var itr = beatmap.hitObjects[i];

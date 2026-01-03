@@ -1,15 +1,47 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>FunkyBeats: Web Converter</title>
+		<title>FB:R Web Convert</title>
 		<meta charset="ASCII" />
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet">
 		<style>
 		  body {
+			font-family: "JetBrains Mono", monospace;
 			padding: 25px;
-			background-color: rgb(24, 24, 24);
+			background-color: rgb(18, 17, 20);
 			color: rgb(255, 255, 255);
-			font-size: 30px;
+			font-size: 20px;
 		  }
+
+		  textarea {
+			font-family: "JetBrains Mono", monospace;
+			padding: 10px;
+			width: 50%; /* Makes all textareas take up the full width of their container */
+			height: 200px; /* Sets a uniform height for all textareas */
+			padding: 12px; /* Adds space between the text and the border */
+			box-sizing: border-box; /* Ensures padding/border is included in the element's total width/height */
+			border: 2px solid #ccc; /* Changes the border style, width, and color */
+			border-radius: 12px; /* Gives rounded corners */
+			background-color: rgb(42, 41, 46); /* Changes the background color */
+			font-size: 16px; /* Sets the font size */
+			color:#ccc;
+		  }
+
+		  button,
+			input[type="button"],
+			input[type="submit"] {
+			background-color: rgb(53, 52, 59);
+			font-size: 16px;
+			border: 2px solid #ccc;
+			color: white;
+			padding: 6px;
+			font-family: "JetBrains Mono", monospace;
+			border-radius: 12px;
+			height: 40px;
+			width: 15%;
+			}
 		</style>
 	  </head>
 <body>
@@ -34,41 +66,41 @@ module.require = function(name) {
 <script src="osuparser.js"></script>
 <script src="format.js"></script>
 <script src="osu_to_lua.js"></script>
-
 <script src="jquery.js"></script>
+<script src="copy_paste.js"></script>
 <script>
 $(function(){
-  $("#submit").click(function(){
-    $("#out").val("converting...")
-			var osu_file_str = $("#in").val()
+  $("#copy_to_clipboard").click(function(){
+    $("#out").select();
+    document.execCommand('copy');
+  })
+
+  // When the user pastes their osu.txt, automatically convert it
+  $("#in").change(function() {
+		var osu_file_str = $("#in").val()
+
+		if (osu_file_str.length != 0) {
+			$("#out").val("converting...")
 			$("#out").val(module.require("osu_to_lua")(osu_file_str))
+		}
   })
 })
 </script>
 
-<textarea id="in" style="width:1000px;height:200px;background-color: #212121;color: rgb(200, 200, 200)"">
-	Paste OSU.txt here
-</textarea>
-<br/>
-<button id="submit">Convert to Lua</button>
+<label for="in_label">FunkyBeats: REMIX - osu.txt -> lua converter</label>
 <br/>
 <br/>
-<textarea id="out" style="width:1000px;height:200px;background-color: #212121;color: rgb(200, 200, 200)" readonly>
-	Output here
-</textarea>
+<textarea id="in"> Paste Here </textarea>
 <br/>
-<script>
-	let text = document.getElementById('out').innerHTML;
-	const copyContent = async () => {
-	  try {
-		await navigator.clipboard.writeText(text);
-		console.log('Content copied to clipboard');
-	  } catch (err) {
-		console.error('Failed to copy: ', err);
-	  }
-	}
-</script>
-<button onclick="copyContent()">Copy text</button>
+<br/>
+<br/>
+<label for="in_label">Output</label>
+<br/>
+<br/>
+<textarea id="out" readonly>(Paste your .txt file above and then press 'Convert'!)</textarea>
+<br/>
+<br/>
+<button id="copy_to_clipboard">Copy To Clipboard</button>
 <br/>
 </body>
 </html>
