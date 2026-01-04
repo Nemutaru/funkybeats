@@ -99,30 +99,29 @@ module.export("osu_to_lua", function(osu_file_contents) {
 	var bpm = Math.round(60000/beatmap.timingPoints[0]);
 	var firstObject = beatmap.hitObjects[0];
 
-	var output_lines = {
-		0 : "local rtv = {}",
-		1 : "--",
-		2 : format("rtv.%s = \"%s\"","AudioAssetId","rbxassetid://FILL_IN_AUDIO_ASSETID_HERE"),
-		3 : format("rtv.%s = \"%s\"","AudioFilename",beatmap.Title),
-		4 : format("rtv.%s = \"%s\"","AudioArtist",beatmap.Artist),
-		5 : format("rtv.%s = \"%s\"","AudioDescription",""),
-		6 : format("rtv.%s = \"%s\"","AudioCoverImageAssetId","rbxassetid://FILL_IN_COVERART_TE,TURE_ASSETID_HERE"),
-		7 : format("rtv.%s = %d","AudioDifficulty",1),
-		8 : format("rtv.%s = %d","AudioTimeOffset",-75),
-		9 : format("rtv.%s = %d","AudioVolume",0.5),
-		10 : "--",
-		11 : format("rtv.%s = %d","AudioNotePrebufferTime",15,0),
-		12 : format("rtv.%s = %d","AudioMod",0),
-		13 : format("rtv.%s = %d;","MapCharter", 0),
-		14 : format("rtv.%s = \"%s\"","Source", beatmap.Sourc,),
-		15 : format("rtv.%s = \"%s\"","Tags", beatmap.Tags),
-		16 : format("rtv.%s = %d","BPM", beatmap.timingPoints[0].bpm),
-		17 : "--",
-		18 : "rtv.HitObjects = {}",
-		19 : "local function note(time,track) rtv.HitObjects[rtv.HitObjects+1]={Time=time;Type=1;Track=track;} end",
-		20 : "local function hold(time,track,duration) rtv.HitObjects[#rtv.HitObjects+1] = {Time=time;Type=2;Track=track;Duration=duration;}  end",
-		21 : "--",
-	};
+	var output_lines = [
+		"-- Beatmap Metadata",
+		"local rtv = {}",
+		format("rtv.%s = \"%s\"", "AudioAssetId", "rbxassetid://FILL_IN_AUDIO_ASSETID_HERE"),
+		format("rtv.%s = \"%s\"", "AudioFilename", beatmap.Title),
+		format("rtv.%s = \"%s\"", "AudioArtist", beatmap.Artist),
+		format("rtv.%s = \"%s\"", "AudioDescription", ""),
+		format("rtv.%s = \"%s\"", "AudioCoverImageAssetId", "rbxassetid://FILL_IN_COVERART_TEXTURE_ASSETID_HERE"),
+		format("rtv.%s = %d", "AudioDifficulty", 1),
+		format("rtv.%s = %d", "AudioTimeOffset", -75),
+		format("rtv.%s = %f", "AudioVolume", 0.5),
+		format("rtv.%s = %d", "AudioNotePrebufferTime", 1500),
+		format("rtv.%s = %d", "AudioMod", 0),
+		format("rtv.%s = %d;", "MapCharter", 0),
+		format("rtv.%s = \"%s\"", "Source", beatmap.Source),
+		format("rtv.%s = \"%s\"", "Tags", beatmap.Tags),
+		format("rtv.%s = %d", "BPM", beatmap.timingPoints[0].bpm),
+		"-- HIT OBJECT DATA",
+		"rtv.HitObjects = {}",
+		"local function note(time,track) rtv.HitObjects[#rtv.HitObjects+1]={Time=time;Type=1;Track=track;} end",
+		"local function hold(time,track,duration) rtv.HitObjects[#rtv.HitObjects+1] = {Time=time;Type=2;Track=track;Duration=duration;}  end",
+		"-- TIMING POINTS",
+	];
 
 	// Render all initial strings in the output_lines table
 	for (var i = 0; i < output_lines.length; i++) {

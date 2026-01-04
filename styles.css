@@ -1,0 +1,51 @@
+body {
+	font-family: "JetBrains Mono", monospace;
+	padding: 30px;
+	background-color: rgb(18, 17, 20);
+	color: rgb(255, 255, 255);
+	font-size: 20px;
+	width: 100%;
+	margin: auto,
+}
+
+textarea {
+	font-family: "JetBrains Mono", monospace;
+	padding: 10px;
+	width: 50%;
+	/* Makes all textareas take up the full width of their container */
+	height: 200px;
+	/* Sets a uniform height for all textareas */
+	padding: 12px;
+	/* Adds space between the text and the border */
+	box-sizing: border-box;
+	/* Ensures padding/border is included in the element's total width/height */
+	border: 2px solid #ccc;
+	/* Changes the border style, width, and color */
+	border-radius: 16px;
+	/* Gives rounded corners */
+	background-color: rgb(44, 42, 54);
+	/* Changes the background color */
+	font-size: 16px;
+	/* Sets the font size */
+	color: #ffffff;
+}
+
+button,
+input[type="button"],
+input[type="submit"] {
+	background-color: rgb(255, 255, 255);
+	font-size: 85%;
+	border: none;
+	color: rgb(16, 16, 16);
+	padding: 12px;
+	font-family: "JetBrains Mono", monospace;
+	border-radius: 16px;
+	height: 50px;
+	width: 15%;
+	font-weight: bold;
+}
+
+button:hover {
+	background-color: rgb(158, 158, 158);
+	border: 2px solid rgb(255, 255, 255);
+}
