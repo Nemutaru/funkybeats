@@ -109,7 +109,7 @@ module.export("osu_to_lua", function(osu_file_contents) {
 		format("rtv.%s = \"%s\"", "AudioCoverImageAssetId", "rbxassetid://FILL_IN_COVERART_TEXTURE_ASSETID_HERE"),
 		format("rtv.%s = %d", "AudioDifficulty", 1),
 		format("rtv.%s = %d", "AudioTimeOffset", -75),
-		format("rtv.%s = %f", "AudioVolume", 0.5),
+		format("rtv.%s = %d", "AudioVolume", 0.5),
 		format("rtv.%s = %d", "AudioNotePrebufferTime", 1500),
 		format("rtv.%s = %d", "AudioMod", 0),
 		format("rtv.%s = %d;", "MapCharter", 0),
